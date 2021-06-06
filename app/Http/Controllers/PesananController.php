@@ -206,10 +206,60 @@ class PesananController extends Controller
         alert()->success('', 'Barang Berhasil di Hapus');
         return redirect('/home');
     }
+
     public function edit_br($id)
     {
         $barang = Barang::where('id', $id)->get();
+        $action = route('edit_post',$id);
         // return view('/editbarang', ['databr' => $data]);
-        return view('editbarang', compact('barang'));
+        // return view('/editbarang', compact('barang'));
+        // echo $id;
+        return view('/editbarang',['databr' => $barang, 'url_action'=>$action]);
     }
+    public function update_br(Request $request, $id){
+    $produk=Barang::where('id', $id)->first();
+    $produk->nama_barang = $request->nama_barang;
+    $produk->harga = $request->harga;
+    $produk->stok = $request->stok;
+    $produk->ket = $request->ket;
+    if ($request->hasFile('gambar')) {
+        $file       = $request->file('gambar');
+        $extension   = $file->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $file->move(public_path('barang'), $filename);
+        $produk->gambar = $filename;
+    }else {
+        $file       = $request->file('gambar');
+        $extension   = $file->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $file->move(public_path('barang'), $filename);
+        $produk->gambar = $filename;
+    }
+    // dd($produk);
+    $produk->update();
+    // return redirect('/home');
+    // $request->validate([
+    //     'nama_barang'=> 'required|max:255|min:1',
+    //     'harga' => 'required|min:0',
+    // ]);
+    // $imgName =null;
+    // if($request->gambar){
+    // $imgName = $request->gambar->getClientOriginalName().'-'.time()
+    //             .'.'. $request->gambar->extension();
+    
+    // $request->gambar->move(public_path('barang'), $imgName);
+    // }
+    
+    // $produk=Barang::find($id)->update([
+    //     'nama_barang'=>$request->nama_barang,
+    //     'harga'=>$request->harga,
+    //     'stok'=>$request->stok,
+    //     'ket'=>$request->ket,
+    //     'gambar'=>$imgName
+    // ]);
+    
+    return response()->json(["status"=>true]);
+}
+
+   
 }

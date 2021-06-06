@@ -33,7 +33,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/pesanan/{id}', [PesananController::class, 'index']);
 Route::get('/barang/delete/{id}', [PesananController::class, 'hapus_br']);
 Route::get('/barang/editget/{id}', [PesananController::class, 'edit_br']);
-Route::get('/barang/editpost/{id}', [PesananController::class, 'update_br']);
+Route::put('/barang/editpost/{id}', [PesananController::class, 'update_br'])->name('edit_post');
 Route::post('/pesanan/order/{id}', [PesananController::class, 'update']);
 Route::get('/keranjang', [PesananController::class, 'keranjang']);
 Route::delete('/cancel-order/{id}', [PesananController::class, 'destroy']);
