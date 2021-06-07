@@ -89,12 +89,14 @@ function editbtn(ini){
     // console.log($(this).data('idsp'))
     let idsp = $('#form-edit').find('#id_data').val()
     let formData = $('#form-edit').serialize()
-    console.log(formData)
+    console.log()
     // console.log(idsp)
     $.ajax({
         url: '/barang/editpost/' + idsp,
         method: "POST",
-        data: formData,
+        processData: false,
+        contentType: false,
+        data: new FormData($('#form-edit')[0]),
         success: function(data) {
             if(data.status){
                 window.location.reload()

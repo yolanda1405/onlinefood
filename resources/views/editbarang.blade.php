@@ -41,9 +41,9 @@
     <br>
     <img id='blah' src="{{ asset('barang/'. $br -> gambar)}}" class="img-thumbnail" width='200px' alt="" srcset="">
     <label for="">Upload Gambar</label>
-    <!-- <input type="file" accept='image/*' class="form-control" name="gambar" onchange="readURL(this)"
-        value="{{$br -> gambar }}"> -->
-    <x-inputfile />
+    <input type="file" accept='image/*' class="form-control" name="gambar" onchange="readURL(this)"
+        value="{{$br -> gambar }}">
+    <!-- <x-inputfile /> -->
     <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
